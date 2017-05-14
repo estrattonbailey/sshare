@@ -56,7 +56,6 @@ const render = (text, sharers, portal) => {
 
   portal.setAttribute('tabindex', '0')
   portal.setAttribute('aria-hidden', 'false')
-  portal.focus()
 
   const node = portal.children[0]
 
@@ -161,6 +160,7 @@ const sshare = ({
        * dialog fly into place
        */
       setTimeout(() => {
+        portal.focus()
         portal.classList.remove('is-hiding')
         portal.classList.add('is-active')
       }, transitionSpeed)
