@@ -1,4 +1,4 @@
-import share from '../package/dist/index.js'
+import sshare from '../package/dist/index.js'
 import twitter from '../package/dist/sharers/twitter.js'
 import facebook from '../package/dist/sharers/facebook.js'
 import email from '../package/dist/sharers/email.js'
@@ -10,7 +10,7 @@ import {
 } from './icons.js'
 
 document.addEventListener('DOMContentLoaded', e => {
-  share({
+  sshare({
     context: [].slice.call(document.querySelectorAll('.js-sharable')),
     transitionSpeed: 200
   })([

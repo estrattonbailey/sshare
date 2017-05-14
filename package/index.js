@@ -1,12 +1,36 @@
 import { tack } from 'tackjs'
 
+/**
+ * Check if click happened
+ * within the dialog
+ *
+ * @param {event} e The click event
+ * @param {object} dialog The share dialog
+ * @return {boolean}
+ */
 const validClick = (e, dialog) => e.target !== dialog || !dialog.contains(e.target)
 
+/**
+ * Check if event is within
+ * the user-specified scope
+ *
+ * @param {object} el The element that triggered the event
+ * @param {array} context Array of elements to scope to
+ * @return {boolean}
+ */
 const isInContext = (el, context) => !context || context.filter(ctx => el === ctx ||ctx.contains(el)).length > 0
 
+/**
+ * Create the main portal
+ * that the links are
+ * rendered into. Set
+ * accessiblity attrs.
+ *
+ * @return {object} a DOM element
+ */
 const createPortal = () => {
   const div = document.createElement('div')
-  div.className = 'bar'
+  div.className = 'sshare'
   div.role = 'dialog'
   div.setAttribute('aria-label', 'Share Dialog')
   div.setAttribute('aria-hidden', 'true')
@@ -14,9 +38,17 @@ const createPortal = () => {
   return div
 }
 
+/**
+ * Render share links,
+ * return node and destroy method
+ *
+ * @param {string} text The highlighted text
+ * @param {array} sharers Array of functions that return elements or strings
+ * @param {object} portal The portal returned from createPortal()
+ */
 const render = (text, sharers, portal) => {
   portal.innerHTML = `
-    <div class="bar__inner">${sharers.map(s => {
+    <div class="sshare__inner">${sharers.map(s => {
       const el = s(text)
       return typeof el === 'string' ? el : el.outerHTML
     }).join('')}</div>
@@ -24,6 +56,7 @@ const render = (text, sharers, portal) => {
 
   portal.setAttribute('tabindex', '0')
   portal.setAttribute('aria-hidden', 'false')
+  portal.focus()
 
   const node = portal.children[0]
 
@@ -35,6 +68,11 @@ const render = (text, sharers, portal) => {
   }
 }
 
+/**
+ * Get range object for highlighted text
+ *
+ * @return {object} range
+ */
 const getSelection = () => {
   const range = window.getSelection()
 
@@ -43,7 +81,10 @@ const getSelection = () => {
   return range.rangeCount < 1 ? null : range.getRangeAt(0)
 }
 
-const sharerr = ({
+/**
+ * Init
+ */
+const sshare = ({
   context = null,
   transitionSpeed = 200,
 }) => (sharers = []) => {
@@ -60,6 +101,11 @@ const sharerr = ({
   let previousRange = null
   let currentRange = null
 
+  /**
+   * Destroys the dialog, tackjs instance
+   * removes listeners, and sets
+   * accessiblity attrs back to defaults
+   */
   const hide = () => {
     if (!dialog || !bar) return
 
@@ -84,6 +130,9 @@ const sharerr = ({
 
     if (!currentRange) return
 
+    /**
+     * Save last focused node
+     */
     focusNode = document.activeElement
 
     const text = currentRange.toString()
@@ -91,31 +140,41 @@ const sharerr = ({
 
     clearTimeout(timeout)
 
+    /**
+     * If no text, or the text is the same
+     * after a click event, hide.
+     *
+     * Otherwise, if it's new text
+     * render a new dialog.
+     */
     if (!text || text.length <= 0 || (previousText === text && !keyup)) {
       hide()
-    } else if (!previousRange || previousRange.toString() !== text) {
+    } else if (!previousRange || previousText !== text) {
       dialog = render(text, sharers, portal)
 
       previousRange = currentRange
 
       bar = tack(portal, currentRange, 'top')
 
+      /**
+       * Ensures you don't see the
+       * dialog fly into place
+       */
       setTimeout(() => {
-        portal.focus()
         portal.classList.remove('is-hiding')
         portal.classList.add('is-active')
       }, transitionSpeed)
 
+      /**
+       * Add listener, which is removed
+       * immediately if it's triggered
+       */
       window.addEventListener('resize', hide)
     }
   }
 
   window.addEventListener('mouseup', e => {
-    if (validClick(e, portal) && isInContext(e.target, context)) {
-      handleSelection()
-    } else {
-      hide()
-    }
+    validClick(e, portal) && isInContext(e.target, context) ? handleSelection() : hide()
   })
   window.addEventListener('keyup', e => {
     if (!currentRange) return
@@ -125,5 +184,5 @@ const sharerr = ({
   window.addEventListener('blur', hide)
 }
 
-export { sharerr }
-export default sharerr
+export { sshare }
+export default sshare

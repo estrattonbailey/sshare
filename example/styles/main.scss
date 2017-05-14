@@ -60,7 +60,7 @@ html, body {
   }
 }
 
-.bar {
+.sshare {
   position: absolute;
   visibility: hidden;
   top: 0;
@@ -70,19 +70,19 @@ html, body {
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(.24,.82,.35,1);
 }
-.bar:focus {
+.sshare:focus {
   outline: 0;
 }
-.bar.is-tacked {
+.sshare.is-tacked {
   visibility: visible;
 }
-.bar.is-active {
+.sshare.is-active {
   opacity: 1;
 }
-.bar.is-hiding {
+.sshare.is-hiding {
   opacity: 0;
 }
-.bar__inner {
+.sshare__inner {
   display: flex;
   background: white;
 
@@ -90,7 +90,7 @@ html, body {
   overflow: hidden;
   box-shadow: 0 3px 12px rgba(0,0,0,0.2);
 }
-.bar__inner::before {
+.sshare__inner::before {
   content: '';
   display: block;
   position: absolute;
@@ -101,21 +101,21 @@ html, body {
   transform: translateY(40%) rotate(45deg);
   background-color: white;
 }
-.bar__inner a {
+.sshare__inner a {
   position: relative;
   width: 35px;
   height: 35px;
   line-height: 35px;
   color: black;
 }
-.bar__inner a:hover {
+.sshare__inner a:hover {
   color: $theme;
 }
-.bar__inner a:focus {
+.sshare__inner a:focus {
   color: $theme;
   outline: 0;
 }
-.bar__inner a svg {
+.sshare__inner a svg {
   display: block;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;

@@ -4,7 +4,7 @@
   "description": "A tiny, accessible, Medium-like share dialog in about ~2.2kb gzipped",
   "main": "dist/index.js",
   "scripts": {
-    "umd": "mkdir -p dist && browserify index.js --standalone sharerr > dist/index.umd.js",
+    "umd": "mkdir -p dist && browserify index.js --standalone sshare > dist/index.umd.js",
     "lint": "standard 'src/*.js' 'sharers/*.js'",
     "prebuild": "npm run lint",
     "build": "npm run build:index && npm run build:sharers",
