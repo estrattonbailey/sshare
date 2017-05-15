@@ -18,7 +18,7 @@ const validClick = (e, dialog) => e.target !== dialog || !dialog.contains(e.targ
  * @param {array} context Array of elements to scope to
  * @return {boolean}
  */
-const isInContext = (el, context) => !context || context.filter(ctx => el === ctx ||ctx.contains(el)).length > 0
+const isInContext = (el, context) => !context || [].slice.call(document.querySelectorAll(context)).filter(ctx => el === ctx ||ctx.contains(el)).length > 0
 
 /**
  * Create the main portal

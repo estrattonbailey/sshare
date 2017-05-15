@@ -11,7 +11,7 @@ import {
 
 document.addEventListener('DOMContentLoaded', e => {
   sshare({
-    context: [].slice.call(document.querySelectorAll('.js-sharable')),
+    context: '.js-sharable',
     transitionSpeed: 200
   })([
     url => `<a href="${twitter(url)}" target="_blank">${tw}</a>`,
