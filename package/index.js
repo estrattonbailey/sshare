@@ -92,7 +92,6 @@ const sshare = ({
   let bar = null
   let dialog = null
   let timeout = 0
-  let focusNode = null
 
   /**
    * Selections
@@ -121,12 +120,6 @@ const sshare = ({
       dialog && dialog.destroy()
       dialog = null
       bar = null
-
-      /**
-       * Return focus to previous
-       * focus node
-       */
-      focusNode.focus()
     }, transitionSpeed)
   }
 
@@ -134,11 +127,6 @@ const sshare = ({
     currentRange = getSelection()
 
     if (!currentRange) return
-
-    /**
-     * Save last focused node
-     */
-    focusNode = document.activeElement
 
     const text = currentRange.toString()
     const previousText = previousRange ? previousRange.toString() : ''
@@ -166,7 +154,6 @@ const sshare = ({
        * dialog fly into place
        */
       setTimeout(() => {
-        portal.focus()
         portal.classList.remove('is-hiding')
         portal.classList.add('is-active')
       }, transitionSpeed)
@@ -200,7 +187,6 @@ const sshare = ({
       window.removeEventListener('resize', hide)
       bar && bar.destroy()
       document.body.contains(portal) && document.body.removeChild(portal)
-      focusNode && focusNode.focus()
     }
   }
 }

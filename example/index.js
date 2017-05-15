@@ -18,6 +18,4 @@ document.addEventListener('DOMContentLoaded', e => {
     url => `<a href="${facebook(url)}" target="_blank">${fb}</a>`,
     url => `<a href="${email(url)}">${gmail}</a>`,
   ])
-
-  setTimeout(() => s.destroy(), 10000)
 })
