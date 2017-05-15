@@ -1,6 +1,6 @@
 {
   "name": "sshare",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A tiny, accessible, Medium-like share dialog in about ~2.2kb gzipped",
   "main": "dist/index.js",
   "scripts": {

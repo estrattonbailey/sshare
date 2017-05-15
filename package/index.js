@@ -114,12 +114,18 @@ const sshare = ({
     timeout = setTimeout(() => {
       portal.classList.remove('is-hiding')
       portal.classList.remove('is-active')
-      bar.destroy()
-      dialog.destroy()
-      dialog = null
-      bar = null
       portal.removeAttribute('tabindex')
       portal.setAttribute('aria-hidden', 'true')
+
+      bar && bar.destroy()
+      dialog && dialog.destroy()
+      dialog = null
+      bar = null
+
+      /**
+       * Return focus to previous
+       * focus node
+       */
       focusNode.focus()
     }, transitionSpeed)
   }
