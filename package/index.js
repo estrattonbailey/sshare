@@ -119,7 +119,7 @@ const sshare = ({
       dialog = null
       bar = null
       portal.removeAttribute('tabindex')
-      div.setAttribute('aria-hidden', 'true')
+      portal.setAttribute('aria-hidden', 'true')
       focusNode.focus()
     }, transitionSpeed)
   }
