@@ -21,7 +21,7 @@ import twitterURL from 'sshare/sharers/twitter.js'
 import facebookURL from 'sshare/sharers/facebook.js'
 import emailURL from 'sshare/sharers/email.js'
 
-sshare({
+const share = sshare({
   context: '.js-sharable',
   transitionSpeed: 200
 }, [
@@ -29,6 +29,8 @@ sshare({
   highlightedText => `<a href="${facebookURL(highlightedText)}" target="_blank"><img src="facebook.svg"/></a>`,
   highlightedText => `<a href="${emailURL(highlightedText)}"><img src="email.svg"/></a>`,
 ])
+
+share.destroy() // removes all markup and listeners
 ```
 
 The generated markup for the above looks like this:
