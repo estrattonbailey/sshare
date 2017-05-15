@@ -1,1 +1,1 @@
-export default s => `https://twitter.com/share?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(s)}`
+export default (text, via, hashtags) => `https://twitter.com/share?url=${window.location.href}&text=${encodeURIComponent(text)}${via ? `&via=${via}` : ''}${hashtags ? `&hashtags=${encodeURIComponent(hashtags)}` : ''}`
