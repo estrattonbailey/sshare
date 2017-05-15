@@ -173,15 +173,30 @@ const sshare = ({
     }
   }
 
-  window.addEventListener('mouseup', e => {
+  const mouseup = e => {
     validClick(e, portal) && isInContext(e.target, context) ? handleSelection() : hide()
-  })
-  window.addEventListener('keyup', e => {
+  }
+  const keyup = e => {
     if (!currentRange) return
     if (e.keyCode === 27) return hide()
     if (isInContext(currentRange.startContainer.parentNode, context)) handleSelection(true)
-  })
+  }
+
+  window.addEventListener('mouseup', mouseup)
+  window.addEventListener('keyup', keyup)
   window.addEventListener('blur', hide)
+
+  return {
+    destroy() {
+      window.removeEventListener('mouseup', mouseup)
+      window.removeEventListener('keyup', keyup)
+      window.removeEventListener('blur', hide)
+      window.removeEventListener('resize', hide)
+      bar && bar.destroy()
+      document.body.contains(portal) && document.body.removeChild(portal)
+      focusNode && focusNode.focus()
+    }
+  }
 }
 
 export { sshare }

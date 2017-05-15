@@ -10,7 +10,7 @@ import {
 } from './icons.js'
 
 document.addEventListener('DOMContentLoaded', e => {
-  sshare({
+  const s = sshare({
     context: '.js-sharable',
     transitionSpeed: 200
   }, [
@@ -18,4 +18,6 @@ document.addEventListener('DOMContentLoaded', e => {
     url => `<a href="${facebook(url)}" target="_blank">${fb}</a>`,
     url => `<a href="${email(url)}">${gmail}</a>`,
   ])
+
+  setTimeout(() => s.destroy(), 10000)
 })
