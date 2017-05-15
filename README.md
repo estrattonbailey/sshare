@@ -22,12 +22,12 @@ import facebookURL from 'sshare/sharers/facebook.js'
 import emailURL from 'sshare/sharers/email.js'
 
 sshare({
-  context: [].slice.call(document.querySelectorAll('.js-sharable')),
+  context: '.js-sharable',
   transitionSpeed: 200
-})([
-  url => `<a href="${twitterURL(url)}" target="_blank"><img src="twitter.svg"/></a>`,
-  url => `<a href="${facebookURL(url)}" target="_blank"><img src="facebook.svg"/></a>`,
-  url => `<a href="${emailURL(url)}"><img src="email.svg"/></a>`,
+}, [
+  highlightedText => `<a href="${twitterURL(highlightedText)}" target="_blank"><img src="twitter.svg"/></a>`,
+  highlightedText => `<a href="${facebookURL(highlightedText)}" target="_blank"><img src="facebook.svg"/></a>`,
+  highlightedText => `<a href="${emailURL(highlightedText)}"><img src="email.svg"/></a>`,
 ])
 ```
 
