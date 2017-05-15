@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', e => {
   sshare({
     context: '.js-sharable',
     transitionSpeed: 200
-  })([
+  }, [
     url => `<a href="${twitter(url)}" target="_blank">${tw}</a>`,
     url => `<a href="${facebook(url)}" target="_blank">${fb}</a>`,
     url => `<a href="${email(url)}">${gmail}</a>`,

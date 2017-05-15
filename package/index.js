@@ -86,7 +86,7 @@ const getSelection = () => {
 const sshare = ({
   context = null,
   transitionSpeed = 200,
-}) => (sharers = []) => {
+}, sharers = []) => {
   const portal = createPortal()
 
   let bar = null
